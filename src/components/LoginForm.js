@@ -3,16 +3,22 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Card, CardSection, Button, Input } from './common';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged } from '../actions';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 
 class LoginForm extends Component {
-  onEmailChange(text){
+  onEmailChange(text) {
     this.props.emailChanged(text);
   }
 
-  onPasswordChange(text){
+  onPasswordChange(text) {
       this.props.passwordChanged(text);
+  }
+
+  onButtonPress() {
+    const { email, password } = this.props;
+
+    this.props.loginUser({ email, password });
   }
   
   render() {
@@ -39,7 +45,7 @@ class LoginForm extends Component {
             error
           </Text> */}
           <CardSection>
-            <Button>
+            <Button onPress={this.onButtonPress.bind(this)}>
                 Login
             </Button>
           </CardSection>          
@@ -64,4 +70,6 @@ const styles = {
   }
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged })(LoginForm);
+export default connect(mapStateToProps, { 
+  emailChanged, passwordChanged, loginUser 
+})(LoginForm);
