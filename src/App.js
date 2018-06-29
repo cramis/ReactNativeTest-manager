@@ -12,10 +12,10 @@ import { firebaseConfig } from './config';
 
 class App extends Component {
 
-  componentWillMount(){
+  componentWillMount() {
     //const config = firebaseConfig;
 
-    console.log('firebase config : ' + firebaseConfig.apiKey);
+    //console.log('firebase config : ' + firebaseConfig.apiKey);
 
     firebase.initializeApp(firebaseConfig);
   }
