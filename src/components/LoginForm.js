@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Card, CardSection, Button, Input, Spinner } from './common';
+
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
