@@ -1,5 +1,6 @@
 import { 
-    EMPLOYEE_UPDATE
+    EMPLOYEE_UPDATE,
+    EMPLOYEE_CREATE
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -16,8 +17,8 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case EMPLOYEE_UPDATE:
             return { ...state, [action.payload.prop]: action.payload.value };    
-        // case PASSWORD_CHANGED:        
-        //     return { ...state, password: action.payload };    
+        case EMPLOYEE_CREATE:        
+            return INITIAL_STATE;    
         // case LOGIN_USER_SUCCESS:        
         //         return { ...state, ...INITIAL_STATE, user: action.payload };  
         // case LOGIN_USER_FAIL:        
