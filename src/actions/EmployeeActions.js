@@ -2,10 +2,7 @@ import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE } from './types';
 
 import firebase from 'firebase';
 
-import { executionAsyncId } from 'async_hooks';
-
 import { Actions } from '../../node_modules/react-native-router-flux';
-import EmployeeCreate from '../components/EmployeeCreate';
 
 export const employeeUpdate = ({ prop, value }) => {
     return {
@@ -14,24 +11,25 @@ export const employeeUpdate = ({ prop, value }) => {
     };
 };
 
-
-
 export const employeeCreate = ({ name, phone, shift }) => {
 
     
     const { currentUser } = firebase.auth();
 
-    
-    console.log(currentUser);
+    // firebase.database().ref(`/users/${currentUser.uid}/employees`)
+    //     .push({ name, phone, shift });
 
     return (dispatch) => {
+        console.log('dispatch: ', dispatch);
         firebase.database().ref(`/users/${currentUser.uid}/employees`)
         .push({ name, phone, shift })
         .then(() => {
-            dispatch({ type: EMPLOYEE_CREATE});
+            dispatch({ type: EMPLOYEE_CREATE });
+            console.log('firebase push!');
             Actions.pop({ type: 'reset' });
-        });
-    }
-    
-
+        })
+        .catch(() => {
+            console.log('can not firebase push');
+            });
+    };
 };
