@@ -1,4 +1,4 @@
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE } from './types';
+import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEE_FETCH_SUCCESS } from './types';
 
 import firebase from 'firebase';
 
@@ -31,5 +31,17 @@ export const employeeCreate = ({ name, phone, shift }) => {
         .catch(() => {
             console.log('can not firebase push');
             });
+    };
+};
+
+export const employeeFetch = () => {
+    const { currentUser } = firebase.auth();
+    
+    return (dispatch) => {
+        console.log('dispatch: ', dispatch);
+        firebase.database().ref(`/users/${currentUser.uid}/employees`)
+        .on('value', snapshot => {
+            dispatch({ type: EMPLOYEE_FETCH_SUCCESS, payload: snapshot.val() });
+        });
     };
 };
